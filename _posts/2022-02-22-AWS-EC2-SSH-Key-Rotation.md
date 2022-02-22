@@ -273,11 +273,7 @@ $ ssh -i new-key.pem ubuntu@{server-IP}}
 The old keypair name remains same in EC2-AWS console. You cannot rename/change an existing keypair name which appears in the console even if that keypair no longer exists.
 If you need to replace the ssh key without changing the key name, please refer the another playbook from my [Github repository](https://github.com/sebinxavi/aws-key-rotation-without-changing-keyname.git)
 
-## Demonstration Video
 
-<a href="https://www.youtube.com/watch?v=ocfrFrFc5X4" target="_blank">
- <img src="https://i.ibb.co/tqb49S4/AWS-KEY-ROTATION.png" alt="Watch the video" width="800" height="450" border="10" />
-</a>
                                                                                            
 ## Author
 Created by [@sebinxavi](https://www.linkedin.com/in/sebinxavi/) - feel free to contact me and advise as necessary!
