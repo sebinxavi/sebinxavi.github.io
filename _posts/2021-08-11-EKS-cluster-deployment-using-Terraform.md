@@ -4,7 +4,7 @@ title: EKS cluster deployment using Terraform
 author: Sebin Xavi
 date: 2021-08-11 11:00:00 +0800
 categories: [AWS]
-tags: [aws,EKS,Terrafrom]
+tags: [aws,eks,terraform]
 math: true
 mermaid: true
 description: How to add an EKS cluster in Rancher?
