@@ -32,7 +32,7 @@ As a AWS security best practice, it is necessary to regularly rotate EC2 key pai
 ### After Running the Ansible Playbook
 
 <br>
-![image-1](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/After-Running-Playbook1.png)
+![image-2](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/After-Running-Playbook1.png)
 <br>
 
 
