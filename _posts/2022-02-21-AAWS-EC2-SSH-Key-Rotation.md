@@ -3,8 +3,8 @@ layout: post
 title: AWS EC2 SSH Key Rotation
 author: Sebin Xavi
 date: 2021-06-23 11:00:00 +0800
-#categories: [AWS]
-#tags: [aws, ansible]
+categories: []
+tags: []
 math: true
 mermaid: true
 description: AWS EC2 SSH Key Rotation
