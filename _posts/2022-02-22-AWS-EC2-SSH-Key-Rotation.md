@@ -11,6 +11,8 @@ description: AWS EC2 SSH Key Rotation with Ansible
 comments: true
 ---
 
+# AWS EC2 SSH Key Rotation
+
 Sometimes we get the requirement to change the key-pair of AWS EC2 instances for some security reasons. In this article, we will be changing the key pair of running EC2 instances using Ansible Playbook.
 
 
@@ -284,3 +286,4 @@ Created by [@sebinxavi](https://www.linkedin.com/in/sebinxavi/) - feel free to c
 
 <a href="mailto:sebin.xavi1@gmail.com"><img src="https://img.shields.io/badge/-sebin.xavi1@gmail.com-D14836?style=flat&logo=Gmail&logoColor=white"/></a>
 <a href="https://www.linkedin.com/in/sebinxavi"><img src="https://img.shields.io/badge/-Linkedin-blue"/></a>
+
