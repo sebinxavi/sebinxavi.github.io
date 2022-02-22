@@ -168,7 +168,6 @@ Deploy the manifest through kubectl apply. Once deployed, I’ve run a --watch c
 You’ll notice that the ready status showed 0/1 for about 49 seconds. Meaning that my container was not in a ready status for 50 seconds until the /readiness page became available through the startup script.
 
 If we access the application service, we can see a successful response once /readiness page became available.
-
 ![alt text](https://i.ibb.co/7rfdBwW/app-browser.png)
 
 ## Summary
