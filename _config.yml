@@ -22,32 +22,32 @@ timezone: Asia/Kolkata
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Angel Mary Babu                       # the main title
+title: Sebin Xavi                       # the main title
 
-tagline: Cloud, DevOps, Site Reliability Engineer   # it will display as the sub-title
+tagline: DevOps Engineer   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   Cloud, DevOps, Site Reliability Engineer
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://angelmarybabu.github.io'
+url: 'https://sebinxavi.github.io'
 
 github:
-  username: angelmarybabu             # change to your github username
+  username: sebinxavi             # change to your github username
 
-twitter:
-  username: AngelMaryBabu1            # change to your twitter username
+#twitter:
+#  username: AngelMaryBabu1            # change to your twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: Angel Mary Babu
-  email: angelmarybabu2@gmail.com            # change to your email address
+  name: Sebin Xavi
+  email: sebin.xavi1@gmail.com            # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/AngelMaryBabu1      # change to your twitter homepage
-    - https://github.com/angelmarybabu       # change to your github homepage
-    - https://www.linkedin.com/in/angelmarybabu
+    #- https://twitter.com/AngelMaryBabu1      # change to your twitter homepage
+    - https://github.com/sebinxavi       # change to your github homepage
+    - https://www.linkedin.com/in/sebinxavi
 
 google_site_verification: google_meta_tag_verification # change to your verification string
 
