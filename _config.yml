@@ -42,7 +42,6 @@ social:
   email: sebin.xavi1@gmail.com            # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    #- https://twitter.com/AngelMaryBabu1      # change to your twitter homepage
     - https://github.com/sebinxavi       # change to your github homepage
     - https://www.linkedin.com/in/sebinxavi
 
@@ -79,7 +78,7 @@ theme_mode:   light # [light|dark]
 img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://raw.githubusercontent.com/angelmarybabu/angelmarybabu.github.io/master/assets/img/favicons/angel.jpeg
+avatar: https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/img/favicons/sebin.jpg
 
 
 # boolean type, the global switch for ToC in posts.
