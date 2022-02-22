@@ -9,18 +9,15 @@ Liveness probes let Kubernetes know if your app is alive or dead. If your app is
 ### Readiness probe
 Readiness probes are designed to let Kubernetes know when your app is ready to serve traffic. Kubernetes makes sure the readiness probe passes before allowing a service to send traffic to the pod. If a readiness probe starts to fail, Kubernetes stops sending traffic to the pod until it passes.
 
-
-<p align="center">
-  <img width="500" height="350" src="kubernetes-probe-readiness.gif">
-</p>
+<br>
+![image-1](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/kubernetes-probe-readiness.gif)
+<br>
 
 In this article, we will see how we can have the Liveness & Readiness probe defined and deployed in Kubernetes.
 
-
-<p align="center">
-  <img width="700" height="450" src="https://i.ibb.co/0qxzdM4/readiness-diagram-1.png">
-</p>
-
+<br>
+![image-2](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/readiness-diagram-1.png)
+<br>
 
 ### Step-1: 
 app.py is a simple Hello World Python Flask application, here we have defined multiple routes and based on the route, respective messages will be displayed to the end-user.
