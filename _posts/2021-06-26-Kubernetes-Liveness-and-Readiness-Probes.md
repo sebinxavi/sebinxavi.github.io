@@ -1,4 +1,15 @@
-# Kubernetes Liveness and Readiness Probes 
+---
+layout: post
+title: Kubernetes Liveness and Readiness Probes
+author: Sebin Xavi
+date: 2021-04-19 11:00:00 +0800
+categories: [AWS]
+tags: [aws, kubernetes, readiness]
+math: true
+mermaid: true
+description: How to add an EKS cluster in Rancher?
+comments: true
+---
 
 Liveness and Readiness probes are used to control the health of an application running inside a Pod’s container. Kubernetes gives you two types of health checks, and it is important to understand the differences between the two, and their uses.
 
