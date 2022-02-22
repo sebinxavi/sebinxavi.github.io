@@ -11,8 +11,6 @@ description: How to add an EKS cluster in Rancher?
 comments: true
 ---
 
-# EKS cluster deployment using Terraform
-
 In this blog, I will be going to create an AWS EKS cluster with the help of Terraform scripts. Amazon Elastic Kubernetes Service (Amazon EKS) is a managed Kubernetes service provided by AWS. Terraform is a tool to manage your infrastructure as code so rather than provisioning an EKS cluster manually, you can use terraform to provision them for you.
 
 ## Step 1: Set up Terraform with AWS
