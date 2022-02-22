@@ -24,15 +24,16 @@ To connect to your instance, you must first generate a key pair, identify the na
 As a AWS security best practice, it is necessary to regularly rotate EC2 key pairs within your account. 
 
 ### Before Running the Ansible Playbook
-<p align="center">
-  <img width="400" height="550" src="https://i.ibb.co/ynbHcwZ/Before-Running-Playbook1.png">
-</p>
+
+<br>
+![image-1](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/Before-Running-Playbook1.png)
+<br>
 
 ### After Running the Ansible Playbook
 
-<p align="center">
-  <img width="900" height="550" src="https://i.ibb.co/30PKTQT/After-Running-Playbook1.png">
-</p>
+<br>
+![image-1](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/After-Running-Playbook1.png)
+<br>
 
 
 ## Technology Used
@@ -286,4 +287,3 @@ Created by [@sebinxavi](https://www.linkedin.com/in/sebinxavi/) - feel free to c
 
 <a href="mailto:sebin.xavi1@gmail.com"><img src="https://img.shields.io/badge/-sebin.xavi1@gmail.com-D14836?style=flat&logo=Gmail&logoColor=white"/></a>
 <a href="https://www.linkedin.com/in/sebinxavi"><img src="https://img.shields.io/badge/-Linkedin-blue"/></a>
-
