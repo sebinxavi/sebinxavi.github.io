@@ -24,13 +24,11 @@ To connect to your instance, you must first generate a key pair, identify the na
 As a AWS security best practice, it is necessary to regularly rotate EC2 key pairs within your account. 
 
 ### Before Running the Ansible Playbook
-
 <br>
 ![image-1](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/Before-Running-Playbook1.png)
 <br>
 
 ### After Running the Ansible Playbook
-
 <br>
 ![image-2](https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/After-Running-Playbook1.png)
 <br>
