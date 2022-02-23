@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en" mode="light" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="layout-lang" content="en"><meta name="day-prompt" content="d ago"><meta name="hour-prompt" content="hr ago"><meta name="minute-prompt" content="min ago"><meta name="justnow-prompt" content="just now"><meta name="generator" content="Jekyll v4.2.1" /><meta property="og:title" content="AWS EC2 SSH Key Rotation with Ansible" /><meta name="author" content="Sebin Xavi" /><meta property="og:locale" content="en" /><meta name="description" content="AWS EC2 SSH Key Rotation with Ansible" /><meta property="og:description" content="AWS EC2 SSH Key Rotation with Ansible" /><link rel="canonical" href="https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/" /><meta property="og:url" content="https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/" /><meta property="og:site_name" content="Sebin Xavi" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-02-12T08:30:00+05:30" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="AWS EC2 SSH Key Rotation with Ansible" /><meta name="google-site-verification" content="google_meta_tag_verification" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Sebin Xavi"},"dateModified":"2022-02-22T12:08:55+05:30","datePublished":"2022-02-12T08:30:00+05:30","description":"AWS EC2 SSH Key Rotation with Ansible","headline":"AWS EC2 SSH Key Rotation with Ansible","mainEntityOfPage":{"@type":"WebPage","@id":"https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/"},"url":"https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/"}</script><title>AWS EC2 SSH Key Rotation with Ansible | Sebin Xavi</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Sebin Xavi"><meta name="application-name" content="Sebin Xavi"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials"><link rel="dns-prefetch" href="https://www.google-analytics.com"><link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="preconnect" href="https://cdn.jsdelivr.net"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><body data-spy="scroll" data-target="#toc"><div id="sidebar" class="d-flex flex-column align-items-end" lang=""><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" alt="avatar" class="mx-auto"> <img src="https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/img/favicons/sebin.jpg" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">Sebin Xavi</a></div><div class="site-subtitle font-italic">DevOps Engineer</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tags ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center"> <a href="https://github.com/sebinxavi" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github-alt"></i> </a> <a href="https://twitter.com/" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['sebin.xavi1','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper" class="row justify-content-center topbar-down"><div id="topbar" class="col-11 d-flex h-100 align-items-center justify-content-between"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>AWS EC2 SSH Key Rotation with Ansible</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> <i class="fa fa-times-circle fa-fw" id="search-cleaner"></i> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper"><div id="main"><div class="row"><div id="post-wrapper" class="col-12 col-lg-11 col-xl-8"><div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><h1 data-toc-skip>AWS EC2 SSH Key Rotation with Ansible</h1><div class="post-meta text-muted d-flex flex-column"><div> <span class="semi-bold"> Sebin Xavi </span> on <span class="timeago " data-toggle="tooltip" data-placement="bottom" title="Sat, Feb 12, 2022, 8:30 AM +0530" >Feb 12<i class="unloaded">2022-02-12T08:30:00+05:30</i> </span></div><div> <span> Updated <span class="timeago lastmod" data-toggle="tooltip" data-placement="bottom" title="Tue, Feb 22, 2022, 12:08 PM +0530" >Feb 22<i class="unloaded">2022-02-22T12:08:55+05:30</i> </span> </span> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1140 words">6 min read</span></div></div><div class="post-content"><p>Sometimes we get the requirement to change the key-pair of AWS EC2 instances for some security reasons. In this article, we will be changing the key pair of running EC2 instances using Ansible Playbook.</p><h2 id="general-information">General Information</h2><p>When you use standard AMIs to launch an EC2 instance, you can connect to it using remote access protocols like SSH and RDP. AWS provides asymmetric key pairs called Amazon EC2 key pairs that you can use to authenticate yourself to the EC2 instance. For encrypting and decrypting login information, EC2 Key Pairs are used: Public Key and Private Key. Public–key cryptography encrypts any piece of data, such as a password, with a public key, and then the receiver decrypts the data with a private key. To connect to your instance, you must first generate a key pair, identify the name of that key pair when the instance is launched, and provide information about the private key when connecting. As a AWS security best practice, it is necessary to regularly rotate EC2 key pairs within your account.</p><h3 id="before-running-the-ansible-playbook">Before Running the Ansible Playbook</h3><p><br /> <img data-proofer-ignore data-src="https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/Before-Running-Playbook1.png" alt="image-1" /> <br /></p><h3 id="after-running-the-ansible-playbook">After Running the Ansible Playbook</h3><p><br /> <img data-proofer-ignore data-src="https://raw.githubusercontent.com/sebinxavi/sebinxavi.github.io/master/assets/media/After-Running-Playbook1.png" alt="image-2" /> <br /></p><h2 id="technology-used">Technology Used</h2><ul><li>ansible - version 2.9.20</ul><h2 id="prerequisites">Prerequisites</h2><ul><li>Ansible Master Server - Linux<li>Ansible version - 2.9<li>SSH access to client servers<li>SSH PEM key of the client servers<li>SSH User with sudo privilege<li>AWS Access key and Secret Key</ul><h2 id="features">Features</h2><ul><li>Ney Keypair will be generated and Old Keypair from AWS account will be removed<li>No need to mention any hosts (Inventory) as we are using Dynamic Inventory function of Ansible in this playbook.<li>Rotation of key pairs for multiple instances can be done in a single session.<li>Free: Ansible is an open-source tool.<li>Very simple to set up and use: No special coding skills are necessary to use Ansible’s playbooks.</ul><h2 id="about-the-playbook">About the playbook</h2><p>The playbook will perform following operations;</p><ul><li>Gather Information of the EC2 instances in which Key To Be Rotated<li>Create Inventory Of EC2 With Old SSH-keyPair<li>Create New SSH-Key Material<li>Add New SSH Public Key to authorized_key<li>Check SSH Connectivity To EC2 instance Using Newly Added Key<li>Execute the Uptime command on remote servers<li>Remove Old SSH Public Key and add New SSH Public Key to authorized_key<li>Print Old authorized_keys file<li>Print New authorized_keys file<li>Rename new SSH Private Key in Local Ansible server<li>Remove Old SSH public key From AWS Account<li>Add New SSH public key to AWS Account</ul><p>The playbook has been written below::</p><div lang="plaintext" class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+</pre><td class="rouge-code"><pre>---
+- name: "Creation of the Ansible Inventory Of EC2 Instances in which Key To Be Rotated"
+  hosts: localhost
+  vars_files:
+    - key.vars
+  tasks:
+
+    # ---------------------------------------------------------------
+    # Gather Information of the EC2 instances in which Key To Be Rotated
+    # ---------------------------------------------------------------
+
+    - name: "Fetching Details About EC2 Instance"
+      ec2_instance_info:
+        aws_access_key: ""
+        aws_secret_key: ""
+        region: ""
+        filters:
+          "key-name": ""
+          instance-state-name: [ "running"]
+      register: ec2
+
+
+    # ------------------------------------------------------------
+    # Creating Inventory Of EC2 With Old SSH-keyPair
+    # ------------------------------------------------------------
+    - name: "Creating Inventory "
+      add_host:
+        name: ""
+        groups: "aws"
+        ansible_host: ""
+        ansible_port: ""
+        ansible_user: ""
+        ansible_ssh_private_key_file: ".pem"
+        ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
+      with_items:
+        - ""
+      no_log: true
+
+- name: "Updating SSH-Key Material"
+  hosts: aws
+  become: true
+  gather_facts: false
+  vars_files:
+    - key.vars
+
+  tasks:
+
+    - name: "Register current SSH Authorized_key file of the system user"
+      shell: cat /home/""/.ssh/authorized_keys
+      register: oldauth
+
+    - name: "Creating New SSH-Key Material"
+      delegate_to: localhost
+      run_once: True
+      openssh_keypair:
+        path: ""
+        type: rsa
+        size: 4096
+        state: present
+
+    - name: "Adding New SSH-Key Material"
+      authorized_key:
+        user: ""
+        state: present
+        key: ".pub')  }}"
+
+
+    - name: "Creating SSH Connection Command"
+      set_fact:
+        ssh_connection: "ssh -o StrictHostKeyChecking=no -i  @ -p  'uptime'"
+
+
+    - name: "Checking Connectivity To EC2 Using Newly Added Key"
+      ignore_errors: true
+      delegate_to: localhost
+      shell: ""
+
+    - name: "Executing the Uptime command on remote servers"
+      command: "uptime"
+      register: uptimeoutput
+    - debug:
+        var: uptimeoutput.stdout_lines
+
+    - name: "Removing Old SSH Public Key and adding New SSH Public Key to authorized_key"
+      authorized_key:
+        user: ""
+        state: present
+        key: ".pub')  }}"
+        exclusive: true
+    
+
+    - name: "Print Old authorized_keys file"
+      debug:
+        msg: "SSH Public Keys in Old authorized_keys file are ''"
+
+
+    - name: "Print New authorized_keys file"
+      shell: cat /home/""/.ssh/authorized_keys
+      register: newauth
+    - debug:
+        msg: "SSH Public Keys in New authorized_keys file are ''"
+
+
+    - name: "Renaming new Private Key Locally"
+      delegate_to: localhost
+      run_once: True
+      shell: |
+        mv  .pem
+        chmod 400 .pem
+
+    - name: "Removing Old SSH public key From AWS Account"
+      delegate_to: localhost
+      run_once: True
+      ec2_key:
+        aws_access_key: ""
+        aws_secret_key: ""
+        region: ""
+        name: ""
+        state: absent
+
+    - name: "Adding New SSH public key to AWS Account"
+      delegate_to: localhost
+      run_once: True
+      ec2_key:
+        aws_access_key: ""
+        aws_secret_key: ""
+        region: ""
+        name: ""
+        key_material: ".pub') }}"
+        state: present
+</pre></table></code></div></div><h2 id="setup">Setup</h2><h3 id="installation-of-ansible-and-boto-in-ubuntu">Installation of Ansible and Boto (In Ubuntu)</h3><div lang="sh" class="language-sh highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="nv">$ </span>apt-get update
+<span class="nv">$ </span>apt-get <span class="nb">install </span>python3
+<span class="nv">$ </span>apt-get <span class="nb">install </span>python3-pip
+<span class="nv">$ </span>pip3 <span class="nb">install </span>ansible
+<span class="nv">$ </span>pip3 <span class="nb">install </span>boto3 botocore
+</pre></table></code></div></div><p><img data-proofer-ignore data-src="https://i.ibb.co/bdBtdhk/1.png" alt="alt text" /></p><h2 id="usage">Usage</h2><h5 id="1-pull-the-code-from-github-repository">1. Pull the code from github repository</h5><div lang="plaintext" class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>$ git clone https://github.com/sebinxavi/aws-key-rotation.git
+$ cd aws-key-rotation
+</pre></table></code></div></div><p><img data-proofer-ignore data-src="https://i.ibb.co/9b76FTv/2.png" alt="alt text" /></p><h5 id="2-update-the-ansible-variable-file---keyvars">2. Update the Ansible variable file - key.vars</h5><div lang="plaintext" class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre>access_key: "&lt;&gt;"
+secret_key: "&lt;&gt;"
+region: "&lt;&gt;"  #----&gt; Example: "ap-south-1"
+old_key: "&lt;&gt;"   #----&gt; Upload this Pem file in the same directory with 400 Permission.
+new_key: "&lt;&gt;"
+system_user: "&lt;&gt;"
+ssh_port: 22
+</pre></table></code></div></div><p>access_key: Add your AWS access key</p><p>secret_key: Add your AWS secret key</p><p>region: Provide the AWS region in which EC2 instances are hosted. Example, “ap-south-1”</p><p>old_key: Add your SSH key name and upload the SSH private key in the same location with 400 permission</p><p>new_key: Add your new key name to be created</p><p>system_user: Add the System user</p><p>ssh_port: Add the SSH port number</p><p><img data-proofer-ignore data-src="https://i.ibb.co/cwjyg2b/3.png" alt="alt text" /></p><h5 id="3-run-the-ansible-playbook">3. Run the Ansible playbook</h5><div lang="plaintext" class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>$ ansible-playbook main.yml
+</pre></table></code></div></div><p><img data-proofer-ignore data-src="https://i.ibb.co/Vmb7rXZ/4.png" alt="alt text" /></p><h5 id="4-try-to-ssh-to-server-using-old-ssh-key-and-new-ssh-key">4. Try to SSH to Server using Old SSH key and New SSH key</h5><div lang="plaintext" class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>$ ssh -i old-key.pem user@{server-IP}}
+</pre></table></code></div></div><div lang="plaintext" class="language-plaintext highlighter-rouge"><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>$ ssh -i new-key.pem ubuntu@{server-IP}}
+</pre></table></code></div></div><p><img data-proofer-ignore data-src="https://i.ibb.co/rcnVd9P/5.png" alt="alt text" /></p><h2 id="further-information">Further Information</h2><p>The old keypair name remains same in EC2-AWS console. You cannot rename/change an existing keypair name which appears in the console even if that keypair no longer exists. If you need to replace the ssh key without changing the key name, please refer the another playbook from my <a href="https://github.com/sebinxavi/aws-key-rotation-without-changing-keyname.git">Github repository</a></p><h2 id="demonstration-video">Demonstration Video</h2><p><a href="https://www.youtube.com/watch?v=ocfrFrFc5X4" target="_blank"> <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3C/svg%3E" data-proofer-ignore data-src="https://i.ibb.co/tqb49S4/AWS-KEY-ROTATION.png" alt="Watch the video" width="800" height="450" border="10" /> </a></p><h2 id="author">Author</h2><p>Created by <a href="https://www.linkedin.com/in/sebinxavi/">@sebinxavi</a> - feel free to contact me and advise as necessary!</p><p><a href="mailto:sebin.xavi1@gmail.com"><img data-proofer-ignore data-src="https://img.shields.io/badge/-sebin.xavi1@gmail.com-D14836?style=flat&amp;logo=Gmail&amp;logoColor=white" /></a> <a href="https://www.linkedin.com/in/sebinxavi"><img data-proofer-ignore data-src="https://img.shields.io/badge/-Linkedin-blue" /></a></p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/aws/'>AWS</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/aws/" class="post-tag no-text-decoration" >aws</a> <a href="/tags/ansible/" class="post-tag no-text-decoration" >ansible</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=AWS EC2 SSH Key Rotation with Ansible - Sebin Xavi&url=https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=AWS EC2 SSH Key Rotation with Ansible - Sebin Xavi&u=https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://telegram.me/share?text=AWS EC2 SSH Key Rotation with Ansible - Sebin Xavi&url=https://sebinxavi.github.io/posts/AWS-EC2-SSH-Key-Rotation/" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i class="fa-fw fas fa-link small" onclick="copyLink('', 'Link copied successfully!')" data-toggle="tooltip" data-placement="top" title="Copy link"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted topbar-down"><div class="access"><div id="access-lastmod" class="post"> <span>Recent Update</span><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/Kubernetes-Liveness-and-Readiness-Probes/">Kubernetes Liveness and Readiness Probes</a><li><a href="/posts/EKS-cluster-deployment-using-Terraform/">EKS cluster deployment using Terraform</a><li><a href="/posts/AWS-EC2-SSH-Key-Rotation/">AWS EC2 SSH Key Rotation with Ansible</a></ul></div><div id="access-tags"> <span>Trending Tags</span><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/aws/">aws</a> <a class="post-tag" href="/tags/ansible/">ansible</a> <a class="post-tag" href="/tags/eks/">eks</a> <a class="post-tag" href="/tags/kubernetes/">kubernetes</a> <a class="post-tag" href="/tags/readiness/">readiness</a> <a class="post-tag" href="/tags/terraform/">terraform</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"> <span class="pl-3 pt-2 mb-2">Contents</span><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div class="col-12 col-lg-11 col-xl-8"><div id="post-extend-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/Kubernetes-Liveness-and-Readiness-Probes/"><div class="card-body"> <span class="timeago small" >Apr 19, 2021<i class="unloaded">2021-04-19T08:30:00+05:30</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Kubernetes Liveness and Readiness Probes</h3><div class="text-muted small"><p> Liveness and Readiness probes are used to control the health of an application running inside a Pod’s container. Kubernetes gives you two types of health checks, and it is important to understand t...</p></div></div></a></div><div class="card"> <a href="/posts/EKS-cluster-deployment-using-Terraform/"><div class="card-body"> <span class="timeago small" >Aug 11, 2021<i class="unloaded">2021-08-11T08:30:00+05:30</i> </span><h3 class="pt-0 mt-1 mb-3" data-toc-skip>EKS cluster deployment using Terraform</h3><div class="text-muted small"><p> In this blog, I will be going to create an AWS EKS cluster with the help of Terraform scripts. Amazon Elastic Kubernetes Service (Amazon EKS) is a managed Kubernetes service provided by AWS. Terraf...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/EKS-cluster-deployment-using-Terraform/" class="btn btn-outline-primary" prompt="Older"><p>EKS cluster deployment using Terraform</p></a> <span class="btn btn-outline-primary disabled" prompt="Newer"><p>-</p></span></div></div></div></div><footer class="d-flex w-100 justify-content-center"><div class="d-flex justify-content-between align-items-center"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://github.com/sebinxavi">Sebin Xavi</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><h4 class="text-muted mb-4">Trending Tags</h4><a class="post-tag" href="/tags/aws/">aws</a> <a class="post-tag" href="/tags/ansible/">ansible</a> <a class="post-tag" href="/tags/eks/">eks</a> <a class="post-tag" href="/tags/kubernetes/">kubernetes</a> <a class="post-tag" href="/tags/readiness/">readiness</a> <a class="post-tag" href="/tags/terraform/">terraform</a></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js"></script> <script> $(function() { let initTheme = "default"; if ($("html[mode=dark]").length > 0 || ($("html[mode]").length == 0 && window.matchMedia("(prefers-color-scheme: dark)").matches ) ) { initTheme = "dark"; } let mermaidConf = { theme: initTheme /* <default|dark|forest|neutral> */ }; /* Markdown converts to HTML */ $("pre").has("code.language-mermaid").each(function() { let svgCode = $(this).children().html(); $(this).addClass("unloaded"); $(this).after(`<div class=\"mermaid\">${svgCode}</div>`); }); mermaid.initialize(mermaidConf); }); </script><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="https://sebinxavi.github.io{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/lozad/dist/lozad.min.js,npm/magnific-popup@1/dist/jquery.magnific-popup.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script> /* see: <https://docs.mathjax.org/en/latest/options/input/tex.html#tex-options> */ MathJax = { tex: { inlineMath: [ /* start/end delimiter pairs for in-line math */ ['$','$'], ['\\(','\\)'] ], displayMath: [ /* start/end delimiter pairs for display math */ ['$$', '$$'], ['\\[', '\\]'] ] } }; </script> <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"> </script> <script src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.16.1,npm/bootstrap@4/dist/js/bootstrap.min.js"></script> <script defer src="/app.js"></script> <script defer src="https://www.googletagmanager.com/gtag/js?id="></script> <script> document.addEventListener("DOMContentLoaded", function(event) { window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', ''); }); </script>
